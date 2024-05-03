@@ -1,4 +1,4 @@
-package ibf2024.assessment;
+package ibf2024.assessment.paf.batch4;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
