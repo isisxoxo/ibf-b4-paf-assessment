@@ -7,7 +7,7 @@
 </head>
 <body>
     
-    <h1><span data-th-text="${breweryName}"></span></h1>
+    <h1><span data-th-text="${brewery.name}"></span></h1>
 
     <a href="/beer/style">Back</a>
 
@@ -41,8 +41,7 @@
 
     <h2>Beers</h2>
 
-    <!-- data-th-text="${brewery.breweryId}" -->
-    <form data-th-action="@{/brewery/${brewery.breweryId}/order}" method="post">
+    <form data-th-action="'/beer/brewery/' + ${brewery.breweryId} + '/order'" method="post">
     <button type="submit">Place Order</button>
 
     <table border="1">
@@ -54,20 +53,21 @@
             </tr>
         </thead>
         <tbody>
-            <tr data-th-each="b: ${brewery.beers}" data-th-object="${b}">
+            <tr data-th-each="b: ${brewery.beers}">
                 <td>
-                    <span data-th-text="*{beerName}"></span> 
+                    <span data-th-text="${b.beerName}"></span> 
                 </td>
                 <td>
-                    <span data-th-text="*{beerDescription}"></span> 
+                    <span data-th-text="${b.beerDescription}"></span> 
                 </td>
                 <td>
-                    <input type="text" name="quantity">
+                    <input type="hidden" name="beerId" data-th-value="${b.beerId}">
+                    <input type="number" name="quantity">
                 </td>
             </tr>
         </tbody>
     </table>
-    <!-- </form> -->
+    </form>
 
 </body>
 </html>

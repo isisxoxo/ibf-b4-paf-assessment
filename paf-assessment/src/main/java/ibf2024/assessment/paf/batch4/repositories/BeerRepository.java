@@ -61,6 +61,9 @@ public class BeerRepository implements Queries {
 		Brewery brewery = new Brewery();
 
 		SqlRowSet rs = jdbcTemplate.queryForRowSet(BREWERY_BEERS, id);
+
+		List<Beer> beerList = new LinkedList<>();
+
 		if (rs.next()) {
 			brewery.setBreweryId(rs.getInt("brewery_id"));
 			brewery.setName(rs.getString("name"));
@@ -70,11 +73,16 @@ public class BeerRepository implements Queries {
 			brewery.setPhone(rs.getString("phone"));
 			brewery.setWebsite(rs.getString("website"));
 			brewery.setDescription(rs.getString("description"));
+
+			Beer beer = new Beer();
+			beer.setBeerId(rs.getInt("beer_id"));
+			beer.setBeerName(rs.getString("beer_name"));
+			beer.setBeerDescription(rs.getString("beer_description"));
+			beerList.add(beer);
 		} else {
 			return Optional.empty();
 		}
 
-		List<Beer> beerList = new LinkedList<>();
 		while (rs.next()) {
 			Beer beer = new Beer();
 			beer.setBeerId(rs.getInt("beer_id"));
@@ -88,6 +96,3 @@ public class BeerRepository implements Queries {
 
 	}
 }
-// select br.id brewery_id, br.name, br.address1, br.address2, br.city,
-// br.phone, br.website, br.descript description,
-// b.id beer_id, b.name beer_name, b.descript beer_description
