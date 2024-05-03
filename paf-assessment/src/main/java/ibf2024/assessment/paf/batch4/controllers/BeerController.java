@@ -10,6 +10,7 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import ibf2024.assessment.paf.batch4.exception.NoBreweryFoundException;
 import ibf2024.assessment.paf.batch4.models.Beer;
 import ibf2024.assessment.paf.batch4.models.Brewery;
 import ibf2024.assessment.paf.batch4.models.Order;
@@ -49,13 +50,13 @@ public class BeerController {
 
 	// TODO Task 4 - view 2
 	@GetMapping("/brewery/{id}")
-	public ModelAndView getBreweriesBeer(@PathVariable int id) {
+	public ModelAndView getBreweriesBeer(@PathVariable int id) throws NoBreweryFoundException {
 
 		Optional<Brewery> opt = beerService.getBeersFromBrewery(id);
 		ModelAndView mav = new ModelAndView();
 
 		if (opt.isEmpty()) {
-			mav.setViewName("nobrewery");
+			throw new NoBreweryFoundException("Brewery not found");
 		} else {
 			mav.setViewName("view2");
 			mav.addObject("brewery", opt.get());
