@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <h1><span data-th-text="${breweryName}"></span></h1>
+
+    <a href="/beer/style">Back</a>
+
+    <table>
+        <tr>
+            <td>Description: </td>
+            <td data-th-text="${brewery.description}"></td>
+        </tr>
+        <tr>
+            <td>Address: </td>
+            <td>
+                <span data-th-text="${brewery.address1}"></span>
+                <br>
+                <span data-th-text="${brewery.address2}"></span>
+                <br>
+                <span data-th-text="${brewery.city}"></span>
+            </td>
+            <td ></td>
+        </tr>
+        <tr>
+            <td>Phone: </td>
+            <td data-th-text="${brewery.phone}"></td>
+        </tr>
+        <tr>
+            <td>Website: </td>
+            <td>
+                <a data-th-href="${brewery.website}">Go</a>
+            </td>
+        </tr>
+    </table>
+
+    <h2>Beers</h2>
+
+    <!-- data-th-text="${brewery.breweryId}" -->
+    <form data-th-action="@{/brewery/${brewery.breweryId}/order}" method="post">
+    <button type="submit">Place Order</button>
+
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Quantity</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr data-th-each="b: ${brewery.beers}" data-th-object="${b}">
+                <td>
+                    <span data-th-text="*{beerName}"></span> 
+                </td>
+                <td>
+                    <span data-th-text="*{beerDescription}"></span> 
+                </td>
+                <td>
+                    <input type="text" name="quantity">
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <!-- </form> -->
+
+</body>
+</html>
